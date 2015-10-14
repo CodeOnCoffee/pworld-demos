@@ -1,0 +1,644 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Attribute" type="attribute"/>
+
+  <xs:element name="AttributeSet" type="attributeSet"/>
+
+  <xs:element name="ChangePasswordUser" type="changePasswordUser"/>
+
+  <xs:element name="ServerPort" type="serverPortDto"/>
+
+  <xs:element name="Service" type="serviceDto"/>
+
+  <xs:element name="complexJobTrigger" type="complexJobTrigger"/>
+
+  <xs:element name="complexJobTriggerProxy" type="complexJobTriggerProxy"/>
+
+  <xs:element name="cronJobTrigger" type="cronJobTrigger"/>
+
+  <xs:element name="cube" type="cube"/>
+
+  <xs:element name="dayOfMonthWrapper" type="dayOfMonthWrapper"/>
+
+  <xs:element name="dayOfWeekWrapper" type="dayOfWeekWrapper"/>
+
+  <xs:element name="emailConfiguration" type="emailConfiguration"/>
+
+  <xs:element name="fileVersioningConfiguration" type="fileVersioningConfiguration"/>
+
+  <xs:element name="hourlyWrapper" type="hourlyWrapper"/>
+
+  <xs:element name="incrementalRecurrence" type="incrementalRecurrence"/>
+
+  <xs:element name="job" type="job"/>
+
+  <xs:element name="jobParams" type="jobParams"/>
+
+  <xs:element name="jobRequest" type="jobRequest"/>
+
+  <xs:element name="jobScheduleRequest" type="jobScheduleRequest"/>
+
+  <xs:element name="licensesummary" type="pentahoTLSupSummary"/>
+
+  <xs:element name="localeMapDto" type="localeMapDto"/>
+
+  <xs:element name="logicalRoleAssignments" type="logicalRoleAssignments"/>
+
+  <xs:element name="minuteWrapper" type="minuteWrapper"/>
+
+  <xs:element name="monthlyWrapper" type="monthlyWrapper"/>
+
+  <xs:element name="overlay" type="overlay"/>
+
+  <xs:element name="pentaholicense" type="pentahoTLSup"/>
+
+  <xs:element name="qualifiedDayOfMonth" type="qualifiedDayOfMonth"/>
+
+  <xs:element name="qualifiedDayOfWeek" type="qualifiedDayOfWeek"/>
+
+  <xs:element name="recurrenceList" type="recurrenceList"/>
+
+  <xs:element name="repositoryFileAclDto" type="repositoryFileAclDto"/>
+
+  <xs:element name="repositoryFileDto" type="repositoryFileDto"/>
+
+  <xs:element name="repositoryFileTreeDto" type="repositoryFileTreeDto"/>
+
+  <xs:element name="roleList" type="roleListWrapper"/>
+
+  <xs:element name="secondWrapper" type="secondWrapper"/>
+
+  <xs:element name="sequentialRecurrence" type="sequentialRecurrence"/>
+
+  <xs:element name="setting" type="setting"/>
+
+  <xs:element name="simpleJobTrigger" type="simpleJobTrigger"/>
+
+  <xs:element name="stringKeyStringValueDto" type="stringKeyStringValueDto"/>
+
+  <xs:element name="stringListWrapper" type="stringListWrapper"/>
+
+  <xs:element name="systemRolesMap" type="systemRolesMap"/>
+
+  <xs:element name="theme" type="theme"/>
+
+  <xs:element name="timeZoneWrapper" type="timeZoneWrapper"/>
+
+  <xs:element name="user" type="user"/>
+
+  <xs:element name="userList" type="userListWrapper"/>
+
+  <xs:element name="yearlyWrapper" type="yearlyWrapper"/>
+
+  <xs:complexType name="job">
+    <xs:sequence>
+      <xs:element name="groupName" type="xs:string" minOccurs="0"/>
+      <xs:element name="jobId" type="xs:string" minOccurs="0"/>
+      <xs:element name="jobName" type="xs:string" minOccurs="0"/>
+      <xs:element ref="jobParams" minOccurs="0"/>
+      <xs:element name="jobTrigger" type="jobTrigger" minOccurs="0"/>
+      <xs:element name="lastRun" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="nextRun" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="state" type="jobState" minOccurs="0"/>
+      <xs:element name="userName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="jobParams">
+    <xs:sequence>
+      <xs:element name="jobParams" type="jobParam" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="jobParam">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="jobTrigger" abstract="true">
+    <xs:sequence>
+      <xs:element name="cronString" type="xs:string" minOccurs="0"/>
+      <xs:element name="duration" type="xs:long"/>
+      <xs:element name="endTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="startTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="uiPassParam" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="simpleJobTrigger">
+    <xs:complexContent>
+      <xs:extension base="jobTrigger">
+        <xs:sequence>
+          <xs:element name="repeatCount" type="xs:int"/>
+          <xs:element name="repeatInterval" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="complexJobTrigger">
+    <xs:complexContent>
+      <xs:extension base="jobTrigger">
+        <xs:sequence>
+          <xs:element name="dayOfMonthRecurrences" type="dayOfMonthWrapper" minOccurs="0"/>
+          <xs:element name="dayOfWeekRecurrences" type="dayOfWeekWrapper" minOccurs="0"/>
+          <xs:element name="hourlyRecurrences" type="hourlyWrapper" minOccurs="0"/>
+          <xs:element name="minuteRecurrences" type="minuteWrapper" minOccurs="0"/>
+          <xs:element name="monthlyRecurrences" type="monthlyWrapper" minOccurs="0"/>
+          <xs:element name="secondRecurrences" type="secondWrapper" minOccurs="0"/>
+          <xs:element name="yearlyRecurrences" type="yearlyWrapper" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="dayOfMonthWrapper">
+    <xs:complexContent>
+      <xs:extension base="iTimeWrapper">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="sequentialRecurrence"/>
+            <xs:element ref="incrementalRecurrence"/>
+            <xs:element ref="qualifiedDayOfMonth"/>
+            <xs:element ref="recurrenceList"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="iTimeWrapper" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="sequentialRecurrence">
+    <xs:sequence>
+      <xs:element name="firstValue" type="xs:int" minOccurs="0"/>
+      <xs:element name="lastValue" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="incrementalRecurrence">
+    <xs:sequence>
+      <xs:element name="increment" type="xs:int" minOccurs="0"/>
+      <xs:element name="startingValue" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="qualifiedDayOfMonth">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="recurrenceList">
+    <xs:sequence>
+      <xs:element name="values" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dayOfWeekWrapper">
+    <xs:complexContent>
+      <xs:extension base="iTimeWrapper">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="sequentialRecurrence"/>
+            <xs:element ref="incrementalRecurrence"/>
+            <xs:element ref="recurrenceList"/>
+            <xs:element ref="qualifiedDayOfWeek"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="qualifiedDayOfWeek">
+    <xs:sequence>
+      <xs:element name="dayOfWeek" type="dayOfWeek" minOccurs="0"/>
+      <xs:element name="qualifier" type="dayOfWeekQualifier" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hourlyWrapper">
+    <xs:complexContent>
+      <xs:extension base="iTimeWrapper">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="sequentialRecurrence"/>
+            <xs:element ref="incrementalRecurrence"/>
+            <xs:element ref="recurrenceList"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="minuteWrapper">
+    <xs:complexContent>
+      <xs:extension base="iTimeWrapper">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="sequentialRecurrence"/>
+            <xs:element ref="incrementalRecurrence"/>
+            <xs:element ref="recurrenceList"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="monthlyWrapper">
+    <xs:complexContent>
+      <xs:extension base="iTimeWrapper">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="sequentialRecurrence"/>
+            <xs:element ref="incrementalRecurrence"/>
+            <xs:element ref="recurrenceList"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="secondWrapper">
+    <xs:complexContent>
+      <xs:extension base="iTimeWrapper">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="sequentialRecurrence"/>
+            <xs:element ref="incrementalRecurrence"/>
+            <xs:element ref="recurrenceList"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="yearlyWrapper">
+    <xs:complexContent>
+      <xs:extension base="iTimeWrapper">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="sequentialRecurrence"/>
+            <xs:element ref="incrementalRecurrence"/>
+            <xs:element ref="recurrenceList"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="cronJobTrigger">
+    <xs:complexContent>
+      <xs:extension base="jobTrigger">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="timeZoneWrapper">
+    <xs:sequence>
+      <xs:element name="serverTzId" type="xs:string" minOccurs="0"/>
+      <xs:element name="timeZones">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="systemRolesMap">
+    <xs:complexContent>
+      <xs:extension base="logicalRoleAssignments">
+        <xs:sequence>
+          <xs:element name="localizedRoleNames" type="localizedLogicalRoleName" nillable="true" minOccurs="0"
+                      maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="logicalRoleAssignments">
+    <xs:sequence>
+      <xs:element name="assignments" type="logicalRoleAssignment" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="localizedLogicalRoleName">
+    <xs:sequence>
+      <xs:element name="localizedName" type="xs:string" minOccurs="0"/>
+      <xs:element name="roleName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="logicalRoleAssignment">
+    <xs:sequence>
+      <xs:element name="immutable" type="xs:boolean"/>
+      <xs:element name="logicalRoles" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="roleName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="localeMapDto">
+    <xs:sequence>
+      <xs:element name="locale" type="xs:string" minOccurs="0"/>
+      <xs:element name="properties" type="stringKeyStringValueDto" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="stringKeyStringValueDto">
+    <xs:sequence>
+      <xs:element name="key" type="xs:string" minOccurs="0"/>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userListWrapper">
+    <xs:sequence>
+      <xs:element name="users" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pentahoTLSupSummary">
+    <xs:sequence>
+      <xs:element name="license" type="pentahoTLSup" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pentahoTLSup">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string" minOccurs="0"/>
+      <xs:element name="format" type="xs:int" minOccurs="0"/>
+      <xs:element name="notAfter" type="xs:string" minOccurs="0"/>
+      <xs:element name="notBefore" type="xs:string" minOccurs="0"/>
+      <xs:element name="outofbounds" type="xs:boolean"/>
+      <xs:element name="subject" type="xs:string" minOccurs="0"/>
+      <xs:element name="pattern" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="repositoryFileTreeDto">
+    <xs:sequence>
+      <xs:element name="children" type="repositoryFileTreeDto" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="file" type="repositoryFileDto" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="repositoryFileDto">
+    <xs:sequence>
+      <xs:element name="aclNode" type="xs:boolean"/>
+      <xs:element name="createdDate" type="xs:string" minOccurs="0"/>
+      <xs:element name="creatorId" type="xs:string" minOccurs="0"/>
+      <xs:element name="deletedDate" type="xs:string" minOccurs="0"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="fileSize" type="xs:long"/>
+      <xs:element name="folder" type="xs:boolean"/>
+      <xs:element name="hidden" type="xs:boolean"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="lastModifiedDate" type="xs:string" minOccurs="0"/>
+      <xs:element name="locale" type="xs:string" minOccurs="0"/>
+      <xs:element name="localePropertiesMapEntries" type="localeMapDto" nillable="true" minOccurs="0"
+                  maxOccurs="unbounded"/>
+      <xs:element name="lockDate" type="xs:string" minOccurs="0"/>
+      <xs:element name="lockMessage" type="xs:string" minOccurs="0"/>
+      <xs:element name="lockOwner" type="xs:string" minOccurs="0"/>
+      <xs:element name="locked" type="xs:boolean"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="originalParentFolderPath" type="xs:string" minOccurs="0"/>
+      <xs:element name="owner" type="xs:string" minOccurs="0"/>
+      <xs:element name="ownerTenantPath" type="xs:string" minOccurs="0"/>
+      <xs:element name="ownerType" type="xs:int"/>
+      <xs:element name="path" type="xs:string" minOccurs="0"/>
+      <xs:element ref="repositoryFileAclDto" minOccurs="0"/>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+      <xs:element name="versionCommentEnabled" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="versionId" type="xs:string" minOccurs="0"/>
+      <xs:element name="versioned" type="xs:boolean"/>
+      <xs:element name="versioningEnabled" type="xs:boolean" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="repositoryFileAclDto">
+    <xs:sequence>
+      <xs:element name="aces" type="repositoryFileAclAceDto" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="entriesInheriting" type="xs:boolean"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="owner" type="xs:string" minOccurs="0"/>
+      <xs:element name="ownerType" type="xs:int"/>
+      <xs:element name="tenantPath" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="repositoryFileAclAceDto">
+    <xs:sequence>
+      <xs:element name="modifiable" type="xs:boolean"/>
+      <xs:element name="permissions" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="recipient" type="xs:string" minOccurs="0"/>
+      <xs:element name="recipientType" type="xs:int"/>
+      <xs:element name="tenantPath" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="jobScheduleRequest">
+    <xs:sequence>
+      <xs:element name="actionClass" type="xs:string" minOccurs="0"/>
+      <xs:element name="complexJobTrigger" type="complexJobTriggerProxy" minOccurs="0"/>
+      <xs:element ref="cronJobTrigger" minOccurs="0"/>
+      <xs:element name="duration" type="xs:long"/>
+      <xs:element name="inputFile" type="xs:string" minOccurs="0"/>
+      <xs:element name="jobName" type="xs:string" minOccurs="0"/>
+      <xs:element name="jobParameters" type="jobScheduleParam" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="outputFile" type="xs:string" minOccurs="0"/>
+      <xs:element ref="simpleJobTrigger" minOccurs="0"/>
+      <xs:element name="timeZone" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="complexJobTriggerProxy">
+    <xs:sequence>
+      <xs:element name="cronString" type="xs:string" minOccurs="0"/>
+      <xs:element name="daysOfMonth" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="daysOfWeek" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="endTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="monthsOfYear" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="startTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="uiPassParam" type="xs:string" minOccurs="0"/>
+      <xs:element name="weeksOfMonth" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="years" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="jobScheduleParam">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="stringValue" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="jobRequest">
+    <xs:sequence>
+      <xs:element name="jobId" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="overlay">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="overlayUri" type="xs:string" minOccurs="0"/>
+      <xs:element name="overlayXml" type="xs:string" minOccurs="0"/>
+      <xs:element name="priority" type="xs:int"/>
+      <xs:element name="resourceBundleUri" type="xs:string" minOccurs="0"/>
+      <xs:element name="source" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="emailConfiguration">
+    <xs:sequence>
+      <xs:element name="authenticate" type="xs:boolean"/>
+      <xs:element name="debug" type="xs:boolean"/>
+      <xs:element name="defaultFrom" type="xs:string" minOccurs="0"/>
+      <xs:element name="fromName" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="smtpHost" type="xs:string" minOccurs="0"/>
+      <xs:element name="smtpPort" type="xs:int" minOccurs="0"/>
+      <xs:element name="smtpProtocol" type="xs:string" minOccurs="0"/>
+      <xs:element name="smtpQuitWait" type="xs:boolean"/>
+      <xs:element name="useSsl" type="xs:boolean"/>
+      <xs:element name="useStartTls" type="xs:boolean"/>
+      <xs:element name="userId" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="stringListWrapper">
+    <xs:sequence>
+      <xs:element name="strings" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="changePasswordUser">
+    <xs:sequence>
+      <xs:element name="newPassword" type="xs:string" minOccurs="0"/>
+      <xs:element name="oldPassword" type="xs:string" minOccurs="0"/>
+      <xs:element name="userName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="theme">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setting">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cube">
+    <xs:sequence>
+      <xs:element name="catName" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="userName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="serviceDto">
+    <xs:sequence>
+      <xs:element name="serverPorts" type="serverPortDto" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="serviceDescription" type="xs:string" minOccurs="0"/>
+      <xs:element name="serviceName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="serverPortDto">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="serviceName" type="xs:string" minOccurs="0"/>
+      <xs:element name="value" type="xs:int" minOccurs="0"/>
+      <xs:element name="friendlyName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="roleListWrapper">
+    <xs:sequence>
+      <xs:element name="roles" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="fileVersioningConfiguration">
+    <xs:sequence>
+      <xs:element name="versionCommentEnabled" type="xs:boolean"/>
+      <xs:element name="versioningEnabled" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="attributeSet">
+    <xs:sequence>
+      <xs:element name="attributes" type="attribute" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="attribute">
+    <xs:sequence>
+      <xs:element name="key" type="xs:string" minOccurs="0"/>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="dayOfWeek">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SUN"/>
+      <xs:enumeration value="MON"/>
+      <xs:enumeration value="TUE"/>
+      <xs:enumeration value="WED"/>
+      <xs:enumeration value="THU"/>
+      <xs:enumeration value="FRI"/>
+      <xs:enumeration value="SAT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="dayOfWeekQualifier">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FIRST"/>
+      <xs:enumeration value="SECOND"/>
+      <xs:enumeration value="THIRD"/>
+      <xs:enumeration value="FOURTH"/>
+      <xs:enumeration value="FIFTH"/>
+      <xs:enumeration value="LAST"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="jobState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NORMAL"/>
+      <xs:enumeration value="PAUSED"/>
+      <xs:enumeration value="COMPLETE"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="BLOCKED"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
