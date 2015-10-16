@@ -12,7 +12,10 @@ public class Activator {
 
   public void loaded() {
 
+    // Get Current Settings Service
     defaultSettings = PentahoSystem.getSystemSettings();
+
+    // Create and register custom Settings Service
     CustomSystemSettings customSystemSettings = new CustomSystemSettings( defaultSettings );
     PentahoSystem.setSystemSettingsService( customSystemSettings );
 
@@ -20,6 +23,7 @@ public class Activator {
 
   public void unLoaded() {
 
+    // Restore original Settings Service
     PentahoSystem.setSystemSettingsService( defaultSettings );
 
   }

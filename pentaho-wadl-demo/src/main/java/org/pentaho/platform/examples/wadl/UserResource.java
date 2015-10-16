@@ -25,16 +25,22 @@ public class UserResource {
   }
 
   public void addUser( String text, String password ) {
+
     User user = new User();
     user.setUserName( text );
     user.setPassword( password );
+
+    // Create User
     resource.path( "userroledao/createUser" ).type( MediaType.APPLICATION_JSON_TYPE ).put( user );
+
+    // Assign Roles to User
     resource.path( "userroledao/assignRoleToUser" ).queryParam( "userName", text ).queryParam( "roleNames",
-        "power%20user%09cto%09" ).accept( MediaType.APPLICATION_JSON_TYPE ).put();
+        "power user" ).accept( MediaType.APPLICATION_JSON_TYPE ).put();
 
   }
 
   public void deleteUser( String name ) {
+
     resource.path( "userroledao/deleteUsers" ).queryParam( "userNames", name ).type( MediaType.APPLICATION_JSON_TYPE )
         .put();
 
@@ -45,6 +51,7 @@ public class UserResource {
     RoleListWrapper roles =
         resource.path( "userroledao/userRoles" ).queryParam( "userName", selectedUser ).accept(
             MediaType.APPLICATION_XML_TYPE ).get( RoleListWrapper.class );
+
     return roles.getRoles();
   }
 
@@ -53,6 +60,7 @@ public class UserResource {
     RoleListWrapper roles =
         resource.path( "userroledao/roles" ).accept(
             MediaType.APPLICATION_XML_TYPE ).get( RoleListWrapper.class );
+
     return roles.getRoles();
   }
 

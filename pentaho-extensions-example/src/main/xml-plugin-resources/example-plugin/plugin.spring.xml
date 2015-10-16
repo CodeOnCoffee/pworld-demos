@@ -7,17 +7,18 @@
     http://www.pentaho.com/schema/pentaho-system http://www.pentaho.com/schema/pentaho-system.xsd"
                            default-lazy-init="true">
 
-<bean class="org.pentaho.platform.engine.core.system.objfac.spring.ApplicationContextPentahoSystemRegisterer" scope="singleton"/>
+  <bean class="org.pentaho.platform.engine.core.system.objfac.spring.ApplicationContextPentahoSystemRegisterer" scope="singleton"/>
 
+  <pen:bean id="repository" class="org.pentaho.platform.api.repository2.unified.IUnifiedRepository"/>
 
-<!-- Get a reference to the existing DAO -->
+  <pen:bean id="userRoleListService" class="org.pentaho.platform.api.engine.IUserRoleListService">
+    <pen:attributes>
+      <pen:attr key="providerName" value="jackrabbit"/>
+    </pen:attributes>
+  </pen:bean>
 
   <bean class="org.pentaho.platform.examples.ExampleAction">
-    <pen:publish as-type="INTERFACES">
-      <pen:attributes>
-        <pen:attr key="priority" value="80"/>
-      </pen:attributes>
-    </pen:publish>
+    <pen:publish as-type="INTERFACES" />
   </bean>
 
 </beans>

@@ -20,18 +20,21 @@ public class CustomSystemSettings implements ISystemSettings {
 
 
   @Override public String getSystemSetting( String s, String s1 ) {
-    String defaultSetting = defaultSettings.getSystemSetting( s, s1 );
+
     if ( "default-theme".equals( s ) ) {
       IPentahoSession session = PentahoSessionHolder.getSession();
       String username = session.getName();
+
       if ( username.equals( "suzy" ) ) {
         String activeTheme = "onyx";
 //        String activeTheme = "onyx".equals( session.getAttribute( "theme" ) ) ? "crystal" : "onyx";
         session.setAttribute( "theme", activeTheme );
         return activeTheme;
       }
+
     }
-    return defaultSetting;
+
+    return defaultSettings.getSystemSetting( s, s1 );
   }
 
   // The Rest delegate directly (pass-through)

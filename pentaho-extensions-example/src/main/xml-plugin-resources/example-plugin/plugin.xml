@@ -2,4 +2,12 @@
 
 <plugin title="Example Logacy Pentaho Plugin" name="example-plugin">
     
+    <static-paths>
+        <!-- this translates to /pentaho/content/common-ui/resources/* -->
+        <static-path url="/example-plugin/resources" localFolder="resources"/>
+    </static-paths>
+    
+    <external-resources>
+        <file context="global">content/example-plugin/resources/example .css</file>
+    </external-resources>
 </plugin>
